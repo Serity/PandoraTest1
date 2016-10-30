@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PandoraTest1.MapEntities
+namespace PandoraTest1.Entities
 {
     public class MapEntity
     {
@@ -63,7 +63,7 @@ namespace PandoraTest1.MapEntities
                     velocity = Y - oldY;
                     _movingOnX = false;
                 }
-                _movementDistance += 3 * (float)(velocity * gameTime.ElapsedGameTime.TotalSeconds);
+                _movementDistance += 5 * (float)(velocity * gameTime.ElapsedGameTime.TotalSeconds);
                 if (Math.Abs(_movementDistance) >= Math.Abs(velocity))
                 {
                     _moving = false;

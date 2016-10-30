@@ -9,7 +9,7 @@ namespace PandoraTest1
 {
     public class Tileset
     {
-        private bool _initialized = false;
+        //private bool _initialized = false;
 
         public string name;
         public Texture2D texture;

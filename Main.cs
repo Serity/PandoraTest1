@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PandoraTest1.Managers;
-using PandoraTest1.MapEntities;
+using PandoraTest1.Entities;
 using System.Collections.Generic;
 
 namespace PandoraTest1
@@ -48,11 +50,13 @@ namespace PandoraTest1
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-
+        public static Actors.Actor aPandora;
+        public static SpriteFont arialFont;
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            arialFont = Content.Load<SpriteFont>("Arial");
             // TODO: use this.Content to load your game content here
             Tileset t = new Tilesets.Town16Test();
             t.Initialize(Content.Load<Texture2D>(t.texturePath));
@@ -66,15 +70,19 @@ namespace PandoraTest1
 
             texturePlayer = Content.Load<Texture2D>("test_female1.png");
 
-            playerMapEntity = new MapEntities.MapEntity();
+            playerMapEntity = new Entities.MapEntity();
             States.MainMenu.town.entities.Add(playerMapEntity);
 
-            MapEntity randomNPC = new MapEntities.MapEntity();
+            MapEntity randomNPC = new Entities.MapEntity();
             randomNPC.X = 1;
             randomNPC.Y = 0;
             randomNPC.InteractAction = delegate (MapEntity user) { randomNPC.MoveRight(); };
 
             States.MainMenu.town.entities.Add(randomNPC);
+
+            aPandora = new Actors.PartyActor();
+            aPandora.name = "Pandora";
+            aPandora.health.Set(300);
         }
 
         /// <summary>

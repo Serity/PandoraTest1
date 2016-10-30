@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿#define DEBUG
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 
@@ -17,22 +19,35 @@ namespace PandoraTest1.Managers
     }
     public class KeybindHandler
     {
-        public static Keybind ConfirmButton = new Keybind(new Keys[] { Keys.Z });
-        public static Keybind CancelButton = new Keybind(new Keys[] { Keys.X });
-        public static Keybind UpButton = new Keybind(new Keys[] { Keys.Up, Keys.W });
-        public static Keybind DownButton = new Keybind(new Keys[] { Keys.Down, Keys.S });
-        public static Keybind LeftButton = new Keybind(new Keys[] { Keys.Left, Keys.A });
-        public static Keybind RightButton = new Keybind(new Keys[] { Keys.Right, Keys.D });
+        public static Keybind ConfirmButton = new Keybind(Keys.Z);
+        public static Keybind CancelButton = new Keybind(Keys.X);
+        public static Keybind UpButton = new Keybind(Keys.Up, Keys.W);
+        public static Keybind DownButton = new Keybind(Keys.Down, Keys.S);
+        public static Keybind LeftButton = new Keybind(Keys.Left, Keys.A);
+        public static Keybind RightButton = new Keybind(Keys.Right, Keys.D);
+
+        public static Keybind Debug1 = new Keybind(Keys.F1);
+        public static Keybind Debug2 = new Keybind(Keys.F2);
+        public static Keybind Debug3 = new Keybind(Keys.F3);
+        public static Keybind Debug4 = new Keybind(Keys.F4);
+
     }
     public class Keybind
     {
         public List<Keys> ValidKeys = new List<Keys>();
-
-        public Keybind(Keys[] keys)
+        /// <summary>
+        /// Initialize the keybinding.
+        /// </summary>
+        /// <param name="keys">CSV or array of keys to use for this keybinding</param>
+        public Keybind(params Keys[] keys)
         {
             SetKeys(keys);
         }
-        public void SetKeys(Keys[] keys)
+        /// <summary>
+        /// Reconfigure the keybinding (e.g. options menu)
+        /// </summary>
+        /// <param name="keys">CSV or array of keys to use for this keybinding</param>
+        public void SetKeys(params Keys[] keys)
         {
             ValidKeys.Clear();
             foreach (Keys k in keys) { ValidKeys.Add(k); }
@@ -43,6 +58,7 @@ namespace PandoraTest1.Managers
         public bool Down {
             get
             {
+                if (ValidKeys.Count == 0) { return false; }
                 foreach (Keys k in ValidKeys) { if (InputManager.Keyboard.KeyDown(k)) { return true; } }
                 return false;
             }
@@ -54,6 +70,7 @@ namespace PandoraTest1.Managers
         {
             get
             {
+                if (ValidKeys.Count == 0) { return false; }
                 foreach (Keys k in ValidKeys) { if (InputManager.Keyboard.KeyUp(k)) { return true; } }
                 return false;
             }
@@ -64,6 +81,7 @@ namespace PandoraTest1.Managers
         public bool Held {
             get
             {
+                if (ValidKeys.Count == 0) { return false; }
                 foreach (Keys k in ValidKeys) { if (InputManager.Keyboard.KeyHeld(k)) { return true; } }
                 return false;
             }
@@ -75,6 +93,7 @@ namespace PandoraTest1.Managers
         {
             get
             {
+                if (ValidKeys.Count == 0) { return false; }
                 foreach (Keys k in ValidKeys) { if (InputManager.Keyboard.IsKeyPressed(k)) { return true; } }
                 return false;
             }

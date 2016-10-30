@@ -5,7 +5,7 @@ using System.Text;
 using PandoraTest1.Tilesets;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using PandoraTest1.MapEntities;
+using PandoraTest1.Entities;
 
 namespace PandoraTest1
 {

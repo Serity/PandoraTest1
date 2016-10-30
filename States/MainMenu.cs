@@ -42,6 +42,7 @@ namespace PandoraTest1.States
         {
             base.Draw(gameTime);
             town.Draw(gameTime);
+            Main.spriteBatch.DrawString(Main.arialFont, Main.aPandora.name + "  " + Main.aPandora.health.ToString(), new Vector2(400), Color.Red);
             if (drawCrosshair) {
                 Vector2 hor1 = new Vector2(0, InputManager.Mouse.Coords.Y);
                 Vector2 hor2 = new Vector2(Main.graphics.GraphicsDevice.Viewport.Width, InputManager.Mouse.Coords.Y);
