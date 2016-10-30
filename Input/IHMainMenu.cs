@@ -14,19 +14,23 @@ namespace PandoraTest1.Input
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (InputManager.Keyboard.KeyDown(Keys.X)) { Main.v += 64; }
-            if (InputManager.Keyboard.IsKeyPressed(Keys.Z)) { Main.playerMapEntity.TryInteract(); }
-            if (InputManager.Keyboard.IsKeyPressed(Keys.Down)) { Main.playerMapEntity.MoveDown(); }
+            if (KeybindHandler.CancelButton.Down) { Main.v += 64; }
+            if (KeybindHandler.ConfirmButton.Pressed) { Main.playerMapEntity.TryInteract(); }
+
+            if (KeybindHandler.DownButton.Pressed) { Main.playerMapEntity.MoveDown(); }
+            else if (KeybindHandler.UpButton.Pressed) { Main.playerMapEntity.MoveUp(); }
+            else if (KeybindHandler.LeftButton.Pressed) { Main.playerMapEntity.MoveLeft(); }
+            else if (KeybindHandler.RightButton.Pressed) { Main.playerMapEntity.MoveRight(); }
+            //if (InputManager.Keyboard.IsKeyPressed(Keys.Z)) { Main.playerMapEntity.TryInteract(); }
+            /*if (InputManager.Keyboard.IsKeyPressed(Keys.Down)) { Main.playerMapEntity.MoveDown(); }
             else if(InputManager.Keyboard.IsKeyPressed(Keys.Up)) { Main.playerMapEntity.MoveUp(); }
             else if (InputManager.Keyboard.IsKeyPressed(Keys.Left)) { Main.playerMapEntity.MoveLeft(); }
-            else if(InputManager.Keyboard.IsKeyPressed(Keys.Right)) { Main.playerMapEntity.MoveRight(); }
+            else if(InputManager.Keyboard.IsKeyPressed(Keys.Right)) { Main.playerMapEntity.MoveRight(); }*/
             if (Main.currentInterface is MainMenu)
             {
-                ((MainMenu)Main.currentInterface).drawCrosshair = InputManager.Mouse.MouseDown();
+                ((MainMenu)Main.currentInterface).drawCrosshair = InputManager.Mouse.IsMousePressed();
             }
 
-            if (InputManager.Keyboard.KeyDown(Keys.Left)) { Main.angle -= 0.01f; }
-            if (InputManager.Keyboard.KeyDown(Keys.Right)) { Main.angle += 0.01f; }
         }
     }
 }

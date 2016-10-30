@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+
 namespace PandoraTest1.Managers
 {
     public class InputManager
@@ -11,6 +13,71 @@ namespace PandoraTest1.Managers
         {
             Keyboard.Update();
             Mouse.Update();
+        }
+    }
+    public class KeybindHandler
+    {
+        public static Keybind ConfirmButton = new Keybind(new Keys[] { Keys.Z });
+        public static Keybind CancelButton = new Keybind(new Keys[] { Keys.X });
+        public static Keybind UpButton = new Keybind(new Keys[] { Keys.Up, Keys.W });
+        public static Keybind DownButton = new Keybind(new Keys[] { Keys.Down, Keys.S });
+        public static Keybind LeftButton = new Keybind(new Keys[] { Keys.Left, Keys.A });
+        public static Keybind RightButton = new Keybind(new Keys[] { Keys.Right, Keys.D });
+    }
+    public class Keybind
+    {
+        public List<Keys> ValidKeys = new List<Keys>();
+
+        public Keybind(Keys[] keys)
+        {
+            SetKeys(keys);
+        }
+        public void SetKeys(Keys[] keys)
+        {
+            ValidKeys.Clear();
+            foreach (Keys k in keys) { ValidKeys.Add(k); }
+        }
+        /// <summary>
+        /// Returns true on the first frame that the specified keybind is held down.
+        /// </summary>
+        public bool Down {
+            get
+            {
+                foreach (Keys k in ValidKeys) { if (InputManager.Keyboard.KeyDown(k)) { return true; } }
+                return false;
+            }
+        }
+        /// <summary>
+        /// Returns true on the first frame that the specified keybind is released.
+        /// </summary>
+        public bool Up
+        {
+            get
+            {
+                foreach (Keys k in ValidKeys) { if (InputManager.Keyboard.KeyUp(k)) { return true; } }
+                return false;
+            }
+        }
+        /// <summary>
+        /// Returns true during the second and on frame that the specified keybind is held down.
+        /// </summary>
+        public bool Held {
+            get
+            {
+                foreach (Keys k in ValidKeys) { if (InputManager.Keyboard.KeyHeld(k)) { return true; } }
+                return false;
+            }
+        }
+        /// <summary>
+        /// Returns true if the specified keybind is held down at all.
+        /// </summary>
+        public bool Pressed
+        {
+            get
+            {
+                foreach (Keys k in ValidKeys) { if (InputManager.Keyboard.IsKeyPressed(k)) { return true; } }
+                return false;
+            }
         }
     }
     public class KeyboardHandler
@@ -47,7 +114,7 @@ namespace PandoraTest1.Managers
     {
         public MouseState _oldState;
         public MouseState _newState;
-        public Vector2 MouseCoords
+        public Vector2 Coords
         {
             get { return _newState.Position.ToVector2(); }
         }

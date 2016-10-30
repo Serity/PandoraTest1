@@ -12,7 +12,6 @@ namespace PandoraTest1
     /// </summary>
     public class Main : Game
     {
-        public static float angle = 0.0f;
         public static GraphicsDeviceManager graphics;
         public static SpriteBatch spriteBatch;
 
