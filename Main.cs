@@ -17,7 +17,7 @@ namespace PandoraTest1
     {
         public static GraphicsDeviceManager graphics;
         public static SpriteBatch spriteBatch;
-
+        public static Main instance;
         
         public static List<Tileset> tilesets = new List<Tileset>();
 
@@ -26,8 +26,12 @@ namespace PandoraTest1
         public static Texture2D texturePixel;
         public static Texture2D texturePlayer;
 
+        public static int GameWidth;
+        public static int GameHeight;
+
         public Main()
         {
+            instance = this;
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsFixedTimeStep = false;
@@ -44,6 +48,9 @@ namespace PandoraTest1
         {
             // TODO: Add your initialization logic here
             base.Initialize();
+
+            GameWidth = graphics.GraphicsDevice.Viewport.Width;
+            GameHeight = graphics.GraphicsDevice.Viewport.Height;
         }
 
         /// <summary>
@@ -52,6 +59,9 @@ namespace PandoraTest1
         /// </summary>
         public static Actors.Actor aPandora;
         public static SpriteFont arialFont;
+        public static List<UI.Spritesheet> spritesheets = new List<UI.Spritesheet>();
+        public int curSpriteSheet = 0;
+
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -72,6 +82,10 @@ namespace PandoraTest1
             texturePixel.SetData<Color>(new Color[] { Color.White });
 
             texturePlayer = Content.Load<Texture2D>("test_female1.png");
+
+            spritesheets.Add(new UI.Spritesheet("blueSheet"));
+            spritesheets.Add(new UI.Spritesheet("lorc_100_spritesheet_transparent-0"));
+
 
             playerMapEntity = new Entities.MapEntity();
             MapManager.currentMap.entities.Add(playerMapEntity);
@@ -105,8 +119,6 @@ namespace PandoraTest1
         public static int v = 64;
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
 
             InputManager.Update(); // calls GameState.Update() after updating all kb/m states
 
@@ -122,18 +134,20 @@ namespace PandoraTest1
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);//.CornflowerBlue);
+            if (!InputManager.blockedInput) { GraphicsDevice.Clear(Color.CornflowerBlue); }
+            else { GraphicsDevice.Clear(Color.Maroon); }
             spriteBatch.Begin();
             try
             {
                 StateManager.currentState.Draw(gameTime);
                 Main.spriteBatch.DrawString(Main.arialFont, Main.aPandora.name + "  " + Main.aPandora.health.ToString(), new Vector2(300), Color.Red);
                 Main.spriteBatch.DrawString(Main.arialFont, StateManager.currentState.ToString() + "/" + StateManager.stateStack.Count +"/" + StateManager.stateStack.ElementAt(0).ToString(), new Vector2(300,320), Color.Red);
-
+                
                 //Texture2D t = ;
                 // TODO: Add your drawing code here
                 //spriteBatch.Draw(texturePlayer, Vector2.Zero, new Rectangle(256, v, 64, 64), Color.White, 0, Vector2.Zero, 16.0f/64.0f, SpriteEffects.None, 0);
                 base.Draw(gameTime);
+                
             }
             finally
             {

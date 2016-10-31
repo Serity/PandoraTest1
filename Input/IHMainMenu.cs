@@ -22,11 +22,9 @@ namespace PandoraTest1.Input
             else if (KeybindHandler.LeftButton.Pressed) { Main.playerMapEntity.MoveLeft(); }
             else if (KeybindHandler.RightButton.Pressed) { Main.playerMapEntity.MoveRight(); }
 
-            if (StateManager.currentState is MainMenu)
-            {
-                (StateManager.currentState as MainMenu).drawCrosshair = InputManager.Mouse.IsMousePressed();
-            }
-
+            MainMenu mm = StateManager.GetState(StateID.MainMenu) as MainMenu;
+            if (InputManager.Mouse.MouseDown()) { mm.drawCrosshair = true; }
+            else if (InputManager.Mouse.MouseUp()) { mm.drawCrosshair = false; }
         }
     }
 }

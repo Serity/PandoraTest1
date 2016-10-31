@@ -48,5 +48,7 @@ namespace PandoraTest1.States
                 Main.spriteBatch.DrawRect(new Rectangle(0, 0, Main.graphics.GraphicsDevice.Viewport.Width, Main.graphics.GraphicsDevice.Viewport.Height), new Color(0, 0, 0, 0.66f));
             }
         }
+        public virtual void EnterState() { }
+        public virtual void ExitState() { }
     }
 }

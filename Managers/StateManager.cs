@@ -16,6 +16,8 @@ namespace PandoraTest1.Managers
         {
             StateList.Add(StateID.MainMenu, new States.MainMenu());
             StateList.Add(StateID.BattleScreen, new States.BattleScreen());
+            StateList.Add(StateID.EscMenuScreen, new States.EscMenuScreen());
+            StateList.Add(StateID.DebugSpritesheetScreen, new States.DebugSpritesheetScreen());
         }
         public static GameState GetState(StateID s) {
             GameState val;
@@ -24,13 +26,24 @@ namespace PandoraTest1.Managers
         }
         public static GameState currentState
         {
-            get { return stateStack.Peek(); }
+            get { if (stateStack.Count > 0) { return stateStack.Peek(); } else { return null; } }
             set
             {
-                if (!stateStack.Contains(value)) { stateStack.Push(value); }
+                InputManager.Reset(); // clear mouse + keyboard states to prevent input carryover between gamestates
+
+                // move this into a SwitchState() func
+                if (!stateStack.Contains(value)) {
+                    currentState?.ExitState();
+                    stateStack.Push(value);
+                    currentState.EnterState();
+                }
                 else
                 {
-                    while (stateStack.Peek() != value) { stateStack.Pop(); }
+                    while (stateStack.Peek() != value) {
+                        currentState?.ExitState();
+                        stateStack.Pop();
+                        currentState.EnterState();
+                    }
                 }
                 
             }

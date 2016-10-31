@@ -39,5 +39,10 @@ namespace PandoraTest1.States
                 Main.spriteBatch.DrawRect(new Rectangle((int)InputManager.Mouse.Coords.X - 1, (int)InputManager.Mouse.Coords.Y - 1, 3, 3), Color.Green);
             }
         }
+        public override void ExitState()
+        {
+            base.ExitState();
+            drawCrosshair = false;
+        }
     }
 }

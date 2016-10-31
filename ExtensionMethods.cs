@@ -25,10 +25,11 @@ namespace PandoraTest1
         }
         public static void DrawBox(this SpriteBatch spriteBatch, Rectangle rectangle, Color color, int width = 1)
         {
+            // bleh off-by-one issue when using Top+Height=Bottom or Left+Width=Right
             spriteBatch.Draw(Main.texturePixel, new Rectangle(rectangle.Left, rectangle.Top, width, rectangle.Height), color); // Left
-            spriteBatch.Draw(Main.texturePixel, new Rectangle(rectangle.Right, rectangle.Top, width, rectangle.Height), color); // Right
+            spriteBatch.Draw(Main.texturePixel, new Rectangle(rectangle.Right - width, rectangle.Top, width, rectangle.Height), color); // Right
             spriteBatch.Draw(Main.texturePixel, new Rectangle(rectangle.Left, rectangle.Top, rectangle.Width, width), color); // Top
-            spriteBatch.Draw(Main.texturePixel, new Rectangle(rectangle.Left, rectangle.Bottom, rectangle.Width+1, width), color); // Bottom
+            spriteBatch.Draw(Main.texturePixel, new Rectangle(rectangle.Left, rectangle.Bottom - width, rectangle.Width, width), color); // Bottom
         }
         public static void DrawRect(this SpriteBatch spriteBatch, Rectangle rectangle, Color color)
         {

@@ -23,7 +23,9 @@ namespace PandoraTest1
     public enum StateID
     {
         MainMenu,
-        BattleScreen
+        EscMenuScreen,
+        BattleScreen,
+        DebugSpritesheetScreen
     }
     public enum MapID
     {

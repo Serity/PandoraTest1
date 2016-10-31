@@ -45,6 +45,7 @@
     <Compile Include="Actors\PartyActor.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Input\IHDebugSprite.cs" />
     <Compile Include="Input\IHBattle.cs" />
     <Compile Include="Interfaces\ITargetable.cs" />
     <Compile Include="Main.cs" />
@@ -59,12 +60,15 @@
     <Compile Include="MapTile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States\DebugSpritesheetScreen.cs" />
+    <Compile Include="States\EscMenuScreen.cs" />
     <Compile Include="States\BattleScreen.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\MainMenu.cs" />
     <Compile Include="TilesetTile.cs" />
     <Compile Include="Tilesets\Town16Test.cs" />
     <Compile Include="Tileset.cs" />
+    <Compile Include="UI\Spritesheet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -74,10 +78,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Attributions.txt" />
     <Content Include="Content\test_female1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Tilesets\16x16Town.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\blueSheet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\blueSheet.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\lorc_100_spritesheet-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\lorc_100_spritesheet-0.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\lorc_100_spritesheet_transparent-0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\lorc_100_spritesheet_transparent-0.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

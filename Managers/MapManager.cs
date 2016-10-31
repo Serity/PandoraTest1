@@ -12,6 +12,8 @@ namespace PandoraTest1.Managers
 
         static MapManager()
         {
+            // todo: later when more maps, just start off with MapList.Add(MapID.X, null), then load them as we need them?
+
             MapList.Add(MapID.Town, new Maps.TownTest());
         }
 
