@@ -28,7 +28,7 @@ namespace PandoraTest1.Managers
             ScrollWheel = newMouseState.ScrollWheelValue - _currentScrollWheel;
             _currentScrollWheel += ScrollWheel;
 
-            Main.currentInterface.Update(gameTime);
+            StateManager.currentState.Update(gameTime);
 
             oldKeyboardState = newKeyboardState;
             oldMouseState = newMouseState;

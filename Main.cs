@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using PandoraTest1.Managers;
 using PandoraTest1.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PandoraTest1
 {
@@ -17,8 +18,7 @@ namespace PandoraTest1
         public static GraphicsDeviceManager graphics;
         public static SpriteBatch spriteBatch;
 
-        public static States.GameState currentInterface;
-
+        
         public static List<Tileset> tilesets = new List<Tileset>();
 
         public static MapEntity playerMapEntity;
@@ -57,16 +57,19 @@ namespace PandoraTest1
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             arialFont = Content.Load<SpriteFont>("Arial");
+
             // TODO: use this.Content to load your game content here
             Tileset t = new Tilesets.Town16Test();
             t.Initialize(Content.Load<Texture2D>(t.texturePath));
             tilesets.Add(t);
-            currentInterface = new States.MainMenu();
+
+
+            StateManager.Initialize();
+            StateManager.currentState = StateManager.GetState(State.MainMenu);
 
             //thanks to Ken on StackExchange http://gamedev.stackexchange.com/questions/44015/
             texturePixel = new Texture2D(GraphicsDevice, 1, 1);
             texturePixel.SetData<Color>(new Color[] { Color.White });
-
 
             texturePlayer = Content.Load<Texture2D>("test_female1.png");
 
@@ -107,7 +110,7 @@ namespace PandoraTest1
 
             InputManager.Update(); // calls GameState.Update() after updating all kb/m states
 
-            currentInterface.Update(gameTime);
+            StateManager.currentState.Update(gameTime);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -123,7 +126,10 @@ namespace PandoraTest1
             spriteBatch.Begin();
             try
             {
-                currentInterface.Draw(gameTime);
+                StateManager.currentState.Draw(gameTime);
+                Main.spriteBatch.DrawString(Main.arialFont, Main.aPandora.name + "  " + Main.aPandora.health.ToString(), new Vector2(300), Color.Red);
+                Main.spriteBatch.DrawString(Main.arialFont, StateManager.currentState.ToString() + "/" + StateManager.stateStack.Count +"/" + StateManager.stateStack.ElementAt(0).ToString(), new Vector2(300,320), Color.Red);
+
                 //Texture2D t = ;
                 // TODO: Add your drawing code here
                 //spriteBatch.Draw(texturePlayer, Vector2.Zero, new Rectangle(256, v, 64, 64), Color.White, 0, Vector2.Zero, 16.0f/64.0f, SpriteEffects.None, 0);
