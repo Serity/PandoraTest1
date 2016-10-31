@@ -10,16 +10,16 @@ namespace PandoraTest1.Managers
     public class StateManager
     {
 
-        public static Dictionary<State, GameState> DictStates = new Dictionary<State, GameState>();
+        public static Dictionary<StateID, GameState> StateList = new Dictionary<StateID, GameState>();
         public static Stack<GameState> stateStack = new Stack<GameState>();
-        public static void Initialize()
+        static StateManager()
         {
-            DictStates.Add(State.MainMenu, new States.MainMenu());
-            DictStates.Add(State.BattleScreen, new States.BattleScreen());
+            StateList.Add(StateID.MainMenu, new States.MainMenu());
+            StateList.Add(StateID.BattleScreen, new States.BattleScreen());
         }
-        public static GameState GetState(State s) {
+        public static GameState GetState(StateID s) {
             GameState val;
-            DictStates.TryGetValue(s, out val);
+            StateList.TryGetValue(s, out val);
             return val;
         }
         public static GameState currentState
@@ -46,10 +46,4 @@ namespace PandoraTest1.Managers
 
         }
     }
-}
-
-public enum State
-{
-    MainMenu,
-    BattleScreen
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using PandoraTest1.Managers;
 
 namespace PandoraTest1.Entities
 {
@@ -26,8 +27,8 @@ namespace PandoraTest1.Entities
 
         public void Draw(GameTime gameTime)
         {
-            float scale = MainMenu.town.mapScale;// * (16.0f/64.0f);
-            int tileSize = MainMenu.town.tileset.tileSize;
+            float scale = MapManager.currentMap.mapScale;// * (16.0f/64.0f);
+            int tileSize = MapManager.currentMap.tileset.tileSize;
             float x;
             float y;
             if (_moving)
@@ -87,11 +88,11 @@ namespace PandoraTest1.Entities
             {
                 // can't go out of bounds
                 if (x < 0 || y < 0) { return; }
-                if (x >= MainMenu.town.width || y >= MainMenu.town.height) { return; }
+                if (x >= MapManager.currentMap.width || y >= MapManager.currentMap.height) { return; }
                 
                 // can't walk through walls
-                if (MainMenu.town.IsTileSolid(x, y, Directions.DirectionToTileSide(_facingDirection))) { return; }
-                if (MainMenu.town.IsTileSolid(X, Y, _facingDirection)) { return; }
+                if (MapManager.currentMap.IsTileSolid(x, y, Directions.DirectionToTileSide(_facingDirection))) { return; }
+                if (MapManager.currentMap.IsTileSolid(X, Y, _facingDirection)) { return; }
 
                 // can't walk into other entities that aren't ephemeral
                 MapEntity t = GetFacingEntity();
@@ -115,7 +116,7 @@ namespace PandoraTest1.Entities
         public MapEntity GetFacingEntity()
         {
             Vector2 coords = GetFacingCoords();
-            MapEntity target = MainMenu.town.entities.FirstOrDefault(v => v.X == coords.X && v.Y == coords.Y);
+            MapEntity target = MapManager.currentMap.entities.FirstOrDefault(v => v.X == coords.X && v.Y == coords.Y);
             return target;
         }
         public bool Interact(MapEntity user)

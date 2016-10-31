@@ -20,4 +20,13 @@ namespace PandoraTest1
             else { return UP; }
         }
     }
+    public enum StateID
+    {
+        MainMenu,
+        BattleScreen
+    }
+    public enum MapID
+    {
+        Town
+    }
 }

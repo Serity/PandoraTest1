@@ -50,11 +50,12 @@
     <Compile Include="Main.cs" />
     <Compile Include="Input\InputHandler.cs" />
     <Compile Include="Input\IHMainMenu.cs" />
-    <Compile Include="Managers\OLDInputManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
+    <Compile Include="Managers\MapManager.cs" />
     <Compile Include="Managers\StateManager.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Entities\MapEntity.cs" />
+    <Compile Include="Maps\TownTest.cs" />
     <Compile Include="MapTile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

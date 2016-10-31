@@ -64,8 +64,8 @@ namespace PandoraTest1
             tilesets.Add(t);
 
 
-            StateManager.Initialize();
-            StateManager.currentState = StateManager.GetState(State.MainMenu);
+            StateManager.currentState = StateManager.GetState(StateID.MainMenu);
+            MapManager.currentMap = MapManager.GetMap(MapID.Town);
 
             //thanks to Ken on StackExchange http://gamedev.stackexchange.com/questions/44015/
             texturePixel = new Texture2D(GraphicsDevice, 1, 1);
@@ -74,14 +74,14 @@ namespace PandoraTest1
             texturePlayer = Content.Load<Texture2D>("test_female1.png");
 
             playerMapEntity = new Entities.MapEntity();
-            States.MainMenu.town.entities.Add(playerMapEntity);
+            MapManager.currentMap.entities.Add(playerMapEntity);
 
             MapEntity randomNPC = new Entities.MapEntity();
             randomNPC.X = 1;
             randomNPC.Y = 0;
             randomNPC.InteractAction = delegate (MapEntity user) { randomNPC.MoveRight(); };
 
-            States.MainMenu.town.entities.Add(randomNPC);
+            MapManager.currentMap.entities.Add(randomNPC);
 
             aPandora = new Actors.PartyActor();
             aPandora.name = "Pandora";

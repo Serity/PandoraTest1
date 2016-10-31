@@ -42,6 +42,11 @@ namespace PandoraTest1.States
                 GameState st = StateManager.PreviousState(this);
                 if (st != this) { st.Draw(gameTime); }
             }
+            if (drawPreviousGameState && !allowInputPassthrough)
+            {
+                // darken previous layer to indicate can't input on previous layer
+                Main.spriteBatch.DrawRect(new Rectangle(0, 0, Main.graphics.GraphicsDevice.Viewport.Width, Main.graphics.GraphicsDevice.Viewport.Height), new Color(0, 0, 0, 0.66f));
+            }
         }
     }
 }
