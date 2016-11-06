@@ -31,4 +31,17 @@ namespace PandoraTest1
     {
         Town
     }
+    public class Sheets
+    {
+        private Sheets(string v) { Value = v; }
+        public string Value { get; set; }
+        public static Sheets UI_Blue { get { return new Sheets("blueSheet"); } }
+        public static Sheets Lorc { get { return new Sheets("lorc_100_spritesheet_transparent-0"); } }
+        public static Sheets GIN_BT { get { return new Sheets("gameiconsnet-spritesheet-transparent-0"); } }
+        public static Sheets GIN_WT { get { return new Sheets("gameiconsnet-spritesheet-transparent-invert-0"); } }
+        public override string ToString()
+        {
+            return Value;
+        }
+    }
 }
