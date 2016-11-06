@@ -35,6 +35,7 @@ namespace PandoraTest1.UI
         public int PaddingTop;
         public int PaddingBottom;
 
+        // return true to prevent parent click events from triggering
         public Func<bool> OnMouseDown;
         public Func<bool> OnMouseUp;
         public Func<bool> OnMouseClick;

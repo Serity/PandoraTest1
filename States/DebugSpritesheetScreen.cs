@@ -65,6 +65,7 @@ namespace PandoraTest1.States
                 panel.Recalculate();
                 _init = true;
             }
+            
             panel.Draw(gameTime);
             panel.Top += panel.Height - 2;
             panel.Recalculate();
