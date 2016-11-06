@@ -116,7 +116,7 @@ namespace PandoraTest1
         protected override void Update(GameTime gameTime)
         {
 
-            InputManager.Update(); // calls GameState.Update() after updating all kb/m states
+            InputManager.Update(gameTime); // calls GameState.Update() after updating all kb/m states
 
             StateManager.currentState.Update(gameTime);
             // TODO: Add your update logic here

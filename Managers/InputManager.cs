@@ -9,13 +9,17 @@ namespace PandoraTest1.Managers
     public class InputManager
     {
         public static bool lockInputForOneFrame = false; // disables rest-of-frame input checking (for kb at least)
-        public static bool blockedInput = false; 
+        public static bool blockedInput = false;
+        public static int keybindHeldMilliRepeatDelay = 500; // number of milliseconds a keybind must be held to qualify as 'held'
+        public static int keybindHeldMilliRepeatRate = 100; // number of milliseconds between keybind held repeats
 
         public static KeyboardHandler Keyboard = new KeyboardHandler();
         public static MouseHandler Mouse = new MouseHandler();
+        public static GameTime _gameTime;
 
-        public static void Update()
+        public static void Update(GameTime gameTime)
         {
+            _gameTime = gameTime;
             lockInputForOneFrame = false;
             if (blockedInput) { return; }
             Keyboard.Update();
@@ -64,6 +68,9 @@ namespace PandoraTest1.Managers
     }
     public class Keybind
     {
+        public int heldBeginDelay = 0;
+        public int heldRepeatDelay = 0;
+
         public List<Keys> ValidKeys = new List<Keys>();
         /// <summary>
         /// Initialize the keybinding.
@@ -106,13 +113,47 @@ namespace PandoraTest1.Managers
             }
         }
         /// <summary>
-        /// Returns true during the second and on frame that the specified keybind is held down.
+        /// Returns true on the first frame a key has been held down, as well as after passing a threshold (think holding down a letter in a text editor).
+        /// </summary>
+        public bool DownOrHeld
+        {
+            get
+            {
+                return Down || Held;
+            }
+        }
+        /// <summary>
+        /// Returns true if the key has been held down for a specified number of frames (InputManager.keybindHeldMilliRepeatDelay)
+        /// and meets the held-down repeat rate (InputManager.keybindHeldMilliRepeatRate)
         /// </summary>
         public bool Held {
             get
             {
                 if (ValidKeys.Count == 0 || InputManager.lockInputForOneFrame) { return false; }
-                foreach (Keys k in ValidKeys) { if (InputManager.Keyboard.KeyHeld(k)) { return true; } }
+                bool incCounter = false; // flag to make sure 
+                int difference = InputManager._gameTime.ElapsedGameTime.Milliseconds;
+                int milliDelay = InputManager.keybindHeldMilliRepeatDelay;
+                int milliRate = InputManager.keybindHeldMilliRepeatRate;
+
+                foreach (Keys k in ValidKeys) {
+                    if (InputManager.Keyboard.KeyHeld(k)) {
+                        // only increase the delay if the key is actually held down, but only once per keybind check
+                        // (we don't want to double up if we hold down two keys that are the same keybind)
+                        if (!incCounter) {
+                            heldBeginDelay += difference;
+                            incCounter = true;
+                            // if we've held the key long enough
+                            if (heldBeginDelay >= milliDelay) {
+                                // check if we've met the repeat time (it starts at 0 so it'll always activate right away when the delay threshold is crossed)
+                                heldRepeatDelay -= difference;
+                                // if the repeat delay has reached 0 then reset timer and return true for held
+                                if (heldRepeatDelay <= 0) { heldRepeatDelay = milliRate; return true; }
+                            }
+                        }
+                    }
+                }
+                // ..if the key isn't even held down, reset hold timer variables
+                if (!incCounter) { heldBeginDelay = 0; heldRepeatDelay = 0; }
                 return false;
             }
         }
