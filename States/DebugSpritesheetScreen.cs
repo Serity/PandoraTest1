@@ -48,10 +48,8 @@ namespace PandoraTest1.States
             int iconLeftPad = 2;
             if (!_init)
             {
-
-
                 panelIcon.SetSprite(SpriteManager.GetSprite(Sheets.GIN_WT, "winged-sword.png"));
-                panel.SetSprite(SpriteManager.GetSprite("blue_button03.png"));
+                panel.SetSprite(UITheme.Red.Panel_Flat);
                 panelIcon.Width = panelIcon.Height = 25;
                 panelIcon.alignHorizontal = 1.0f;
                 panelIcon.alignVertical = 0.5f;
@@ -74,12 +72,7 @@ namespace PandoraTest1.States
                 panel.Recalculate();
                 _init = true;
             }
-            
             panel.Draw(gameTime);
-            panel.Top += panel.Height - 2;
-            panel.Recalculate();
-            panel.Draw(gameTime);
-            panel.Top -= panel.Height - 2;
         }
         public void ChangeAlign(float f)
         {

@@ -23,11 +23,15 @@ namespace PandoraTest1.UI
         public float alignVertical;
 
         // offset X/Y by values
-        public int Left;
-        public int Top;
+        private int _left;
+        private int _top;
+        public int Left { get { return _left; } set { _left = value; Recalculate(); } }
+        public int Top { get { return _top; } set { _top = value; Recalculate(); } }
 
-        public int Width;
-        public int Height;
+        private int _width;
+        private int _height;
+        public int Width { get { return _width; } set { _width = value; Recalculate(); } }
+        public int Height { get { return _height; } set { _height = value; Recalculate(); } }
 
         // Padding for innerDimensions (paddingTop = 2 means children coords will be rendered from (X+2)=top left)
         public int PaddingLeft;

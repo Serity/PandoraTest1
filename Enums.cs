@@ -36,6 +36,11 @@ namespace PandoraTest1
         private Sheets(string v) { Value = v; }
         public string Value { get; set; }
         public static Sheets UI_Blue { get { return new Sheets("blueSheet"); } }
+        public static Sheets UI_Green { get { return new Sheets("greenSheet"); } }
+        public static Sheets UI_Grey { get { return new Sheets("greySheet"); } }
+        public static Sheets UI_Red { get { return new Sheets("redSheet"); } }
+        public static Sheets UI_Yellow { get { return new Sheets("yellowSheet"); } }
+
         public static Sheets Lorc { get { return new Sheets("lorc_100_spritesheet_transparent-0"); } }
         public static Sheets GIN_BT { get { return new Sheets("gameiconsnet-spritesheet-transparent-0"); } }
         public static Sheets GIN_WT { get { return new Sheets("gameiconsnet-spritesheet-transparent-invert-0"); } }

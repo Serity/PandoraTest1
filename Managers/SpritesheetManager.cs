@@ -15,6 +15,12 @@ namespace PandoraTest1.Managers
         static SpriteManager()
         {
             AddNewSheet(Sheets.UI_Blue);
+            AddNewSheet(Sheets.UI_Green);
+            AddNewSheet(Sheets.UI_Grey);
+            AddNewSheet(Sheets.UI_Red);
+            AddNewSheet(Sheets.UI_Yellow);
+
+
             AddNewSheet(Sheets.Lorc);
             AddNewSheet(Sheets.GIN_BT);
             AddNewSheet(Sheets.GIN_WT);
@@ -31,7 +37,7 @@ namespace PandoraTest1.Managers
 
         public static Sprite GetSprite(string spriteName)
         {
-            return sprites.Find(s => s.name.Equals(spriteName));
+            return sprites.Find(s => s.name.Equals(spriteName) || s.name.Equals(spriteName + ".png"));
         }
         public static Sprite GetSprite(Sheets sheet, string spriteName)
         {

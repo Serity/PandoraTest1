@@ -88,7 +88,7 @@
     <Compile Include="Graphics\Spritesheet.cs" />
     <Compile Include="UI\UIObject.cs" />
     <Compile Include="UI\UISprite.cs" />
-    <Compile Include="UI\UIPanel.cs" />
+    <Compile Include="UI\UITheme.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -108,7 +108,19 @@
     <Content Include="Content\UI\gameiconsnet-spritesheet-transparent-invert-0.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\UI\greenSheet.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\greySheet.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\UI\lorc_100_spritesheet_transparent-0.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\redSheet.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\yellowSheet.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />
