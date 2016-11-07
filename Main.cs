@@ -61,27 +61,30 @@ namespace PandoraTest1
         public static SpriteFont arialFont;
         public static List<Spritesheet> spritesheets = new List<Spritesheet>();
         public int curSpriteSheet = 0;
-
+        public static Texture2D LoadTexture(string path)
+        {
+            return Main.instance.Content.Load<Texture2D>(path);
+        }
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             arialFont = Content.Load<SpriteFont>("Arial");
 
+            //thanks to Ken on StackExchange http://gamedev.stackexchange.com/questions/44015/
+            texturePixel = new Texture2D(GraphicsDevice, 1, 1);
+            texturePixel.SetData<Color>(new Color[] { Color.White });
+
             // TODO: use this.Content to load your game content here
             Tileset t = new Tilesets.Town16Test();
-            t.Initialize(Content.Load<Texture2D>(t.texturePath));
+            t.Initialize(LoadTexture(t.texturePath));
             tilesets.Add(t);
 
 
             StateManager.currentState = StateManager.GetState(StateID.MainMenu);
             MapManager.currentMap = MapManager.GetMap(MapID.Town);
 
-            //thanks to Ken on StackExchange http://gamedev.stackexchange.com/questions/44015/
-            texturePixel = new Texture2D(GraphicsDevice, 1, 1);
-            texturePixel.SetData<Color>(new Color[] { Color.White });
-
-            texturePlayer = Content.Load<Texture2D>("test_female1.png");
+            texturePlayer = LoadTexture("test_female1");
 
             playerMapEntity = new Entities.MapEntity();
             MapManager.currentMap.entities.Add(playerMapEntity);

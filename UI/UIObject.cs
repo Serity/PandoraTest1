@@ -34,7 +34,7 @@ namespace PandoraTest1.UI
         public int PaddingRight;
         public int PaddingTop;
         public int PaddingBottom;
-
+        public int PaddingAll { set { PaddingLeft = PaddingRight = PaddingTop = PaddingBottom = value; } }
         // return true to prevent parent click events from triggering
         public Func<bool> OnMouseDown;
         public Func<bool> OnMouseUp;

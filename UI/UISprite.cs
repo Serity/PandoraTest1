@@ -13,7 +13,7 @@ namespace PandoraTest1.UI
 
         public override void Draw(GameTime gameTime)
         {
-            sprite.Draw(gameTime, dimensions.X, dimensions.Y, dimensions.Width, dimensions.Height);
+            if (sprite != null) { sprite.Draw(gameTime, dimensions.X, dimensions.Y, dimensions.Width, dimensions.Height); }
             base.Draw(gameTime);
         }
         public void SetSprite(Sprite s)

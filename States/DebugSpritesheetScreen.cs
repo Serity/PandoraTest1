@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using PandoraTest1.Managers;
 using PandoraTest1.Graphics;
 using PandoraTest1.UI;
+using System.Diagnostics;
 
 namespace PandoraTest1.States
 {
@@ -47,10 +48,6 @@ namespace PandoraTest1.States
             int iconLeftPad = 2;
             if (!_init)
             {
-                panel.OnMouseEnter = () => { Console.WriteLine("entering panel"); return true; };
-                panelIcon.OnMouseEnter = () => { Console.WriteLine("entering icon"); return true; };
-                panel.OnMouseDown = () => { Console.WriteLine("Clicked panel"); return true; };
-                panelIcon.OnMouseDown = () => { Console.WriteLine("Clicked icon"); return true; };
 
 
                 panelIcon.SetSprite(SpriteManager.GetSprite(Sheets.GIN_WT, "winged-sword.png"));
@@ -60,8 +57,20 @@ namespace PandoraTest1.States
                 panelIcon.alignVertical = 0.5f;
                 panelIcon.Left = iconLeftPad;
                 panelIcon.SetParent(panel);
-                panel.PaddingRight = 6 + iconLeftPad;
-                panel.Left = (-1 * panel.Width) + panelIcon.Width + panel.PaddingRight + panelIcon.Left;
+                panel.PaddingAll = 6;
+                panel.PaddingRight += 2;
+                int panel_left = (-1 * panel.Width) + panelIcon.Width + panel.PaddingRight + panelIcon.Left;
+                panel.Left = panel_left;
+                panel.OnMouseEnter = () => { Console.WriteLine("entering panel"); return true; };
+                panelIcon.OnMouseEnter = () => { Console.WriteLine("entering icon"); return true; };
+                panel.OnMouseDown = () => {
+                    // todo: extend animation
+                    if (panel.Left == panel_left) { panel.Left = -1 * panel.PaddingLeft; }
+                    else { panel.Left = panel_left; }
+                    return true;
+                };
+                panelIcon.OnMouseDown = () => { Console.WriteLine("Clicked icon"); return false; };
+
                 panel.Recalculate();
                 _init = true;
             }

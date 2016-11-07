@@ -32,8 +32,8 @@ namespace PandoraTest1.Graphics
         }
         public void Load()
         {
-            string path = "UI/" + name + ".png";
-            sheetTexture = Main.instance.Content.Load<Texture2D>(path);
+            string path = "UI/" + name;
+            sheetTexture = Main.LoadTexture(path);
         }
         public void Unload()
         {
