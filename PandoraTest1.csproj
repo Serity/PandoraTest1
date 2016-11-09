@@ -69,7 +69,7 @@
     <Compile Include="Input\IHMainMenu.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Managers\MapManager.cs" />
-    <Compile Include="Managers\SpritesheetManager.cs" />
+    <Compile Include="Managers\SpriteManager.cs" />
     <Compile Include="Managers\StateManager.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Entities\MapEntity.cs" />
@@ -87,8 +87,10 @@
     <Compile Include="Tileset.cs" />
     <Compile Include="Graphics\Spritesheet.cs" />
     <Compile Include="UI\UIObject.cs" />
+    <Compile Include="UI\UISpriteShadow.cs" />
     <Compile Include="UI\UISprite.cs" />
     <Compile Include="UI\UITheme.cs" />
+    <Compile Include="UI\UI_BattleExtendFromLeftPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -106,6 +108,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\UI\gameiconsnet-spritesheet-transparent-invert-0.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\gameiconsnet-spritesheet-transparent-invert-3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\gameiconsnet-spritesheet-transparent-invert-6.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\UI\greenSheet.xml">

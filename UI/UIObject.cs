@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PandoraTest1.UI
 {
-    public abstract class UIObject
+    public class UIObject
     {
         public UIObject parent;
         public List<UIObject> children = new List<UIObject>();
@@ -48,17 +48,28 @@ namespace PandoraTest1.UI
         public Func<bool> OnMouseHeld;
         public Func<bool> OnMouseHover;
 
+        public Action DrawPreChildrenDelegate;
+        public Action DrawPostChildrenDelegate;
+        public Action UpdateDelegate;
+
         public Vector2 Center {
             get { return dimensions.Center.ToVector2(); }
         }
         public virtual void Draw(GameTime gameTime)
         {
+            if (DrawPreChildrenDelegate != null) { DrawPreChildrenDelegate(); }
             foreach (UIObject uic in children) { uic.Draw(gameTime); }
+            if (DrawPostChildrenDelegate != null) { DrawPostChildrenDelegate(); }
         }
         public virtual bool Update(GameTime gameTime)
         {
+            if (UpdateDelegate != null) { UpdateDelegate(); }
+
             bool hover = InputManager.Mouse.MouseHover(dimensions);
-            if (!hover) { return false; }
+            if (!hover) {
+                if (InputManager.Mouse.MouseLeave(dimensions) && OnMouseLeave != null) { Console.WriteLine("onmouseleave"); return OnMouseLeave(); }
+                //return false;
+            }
 
             bool childDidClick = false; 
 
@@ -69,8 +80,7 @@ namespace PandoraTest1.UI
             if (InputManager.Mouse.MouseClick(dimensions) && OnMouseClick != null) { return OnMouseClick(); }
             else if (InputManager.Mouse.MouseDown() && OnMouseDown != null) { return OnMouseDown(); }
             else if (InputManager.Mouse.MouseUp() && OnMouseUp != null) { return OnMouseUp(); }
-            else if (InputManager.Mouse.MouseEnter(dimensions) && OnMouseEnter != null) { return OnMouseEnter(); }
-            else if (InputManager.Mouse.MouseLeave(dimensions) && OnMouseLeave != null) { return OnMouseLeave(); }
+            else if (InputManager.Mouse.MouseEnter(dimensions) && OnMouseEnter != null) { Console.WriteLine("onmouseenter"); return OnMouseEnter(); }
             else if (InputManager.Mouse.MouseHeld() && OnMouseHeld != null) { return OnMouseHeld(); }
             else if (InputManager.Mouse.MouseHover(dimensions) && OnMouseHover != null) { return OnMouseHover(); }
 

@@ -144,7 +144,8 @@ namespace PandoraTest1
                 StateManager.currentState.Draw(gameTime);
                 Main.spriteBatch.DrawString(Main.arialFont, Main.aPandora.name + "  " + Main.aPandora.health.ToString(), new Vector2(300), Color.Red);
                 Main.spriteBatch.DrawString(Main.arialFont, StateManager.currentState.ToString() + "/" + StateManager.stateStack.Count +"/" + StateManager.stateStack.ElementAt(0).ToString(), new Vector2(300,320), Color.Red);
-                
+
+                Main.spriteBatch.DrawString(Main.arialFont, InputManager.Mouse._newState.X + "/" + InputManager.Mouse._newState.Y + "/" + InputManager.Mouse._oldState.X + "/" + InputManager.Mouse._oldState.Y, new Vector2(300, 420), Color.Red);
                 //Texture2D t = ;
                 // TODO: Add your drawing code here
                 //spriteBatch.Draw(texturePlayer, Vector2.Zero, new Rectangle(256, v, 64, 64), Color.White, 0, Vector2.Zero, 16.0f/64.0f, SpriteEffects.None, 0);

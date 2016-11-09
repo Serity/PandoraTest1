@@ -44,6 +44,8 @@ namespace PandoraTest1
         public static Sheets Lorc { get { return new Sheets("lorc_100_spritesheet_transparent-0"); } }
         public static Sheets GIN_BT { get { return new Sheets("gameiconsnet-spritesheet-transparent-0"); } }
         public static Sheets GIN_WT { get { return new Sheets("gameiconsnet-spritesheet-transparent-invert-0"); } }
+        public static Sheets GIN3_WT { get { return new Sheets("gameiconsnet-spritesheet-transparent-invert-3"); } }
+        public static Sheets GIN6_WT { get { return new Sheets("gameiconsnet-spritesheet-transparent-invert-6"); } }
         public override string ToString()
         {
             return Value;

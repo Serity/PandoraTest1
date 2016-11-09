@@ -24,6 +24,8 @@ namespace PandoraTest1.Managers
             AddNewSheet(Sheets.Lorc);
             AddNewSheet(Sheets.GIN_BT);
             AddNewSheet(Sheets.GIN_WT);
+            AddNewSheet(Sheets.GIN3_WT);
+            AddNewSheet(Sheets.GIN6_WT);
         }
         private static void AddNewSheet(string sheet)
         {
@@ -35,19 +37,23 @@ namespace PandoraTest1.Managers
 
         public static Spritesheet GetSheet(Sheets sheet) { return sheets.FirstOrDefault(s => s.name.Equals(sheet.Value)); }
 
-        public static Sprite GetSprite(string spriteName)
-        {
-            return sprites.Find(s => s.name.Equals(spriteName) || s.name.Equals(spriteName + ".png"));
-        }
+
         public static Sprite GetSprite(Sheets sheet, string spriteName)
         {
             Spritesheet q = GetSheet(sheet);
             return GetSprite(q, spriteName);
         }
+        public static Sprite GetSprite(string spriteName)
+        {
+            return GetSpriteFromList(sprites, spriteName);
+        }
         public static Sprite GetSprite(Spritesheet sheet, string spriteName)
         {
-            return sheet.sprites.Find(s => s.name.Equals(spriteName));
+            return GetSpriteFromList(sheet.sprites, spriteName);
         }
-
+        private static Sprite GetSpriteFromList(List<Sprite> sprites, string spriteName)
+        {
+            return sprites.Find(s => s.name.Equals(spriteName) || s.name.Equals(spriteName + ".png"));
+        }
     }
 }

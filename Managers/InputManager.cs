@@ -223,11 +223,14 @@ namespace PandoraTest1.Managers
             _oldState = _newState;
             _newState = Mouse.GetState();
 
-            if (MouseDown()) { coordsMouseClickDown = MouseRectangle(Coords); }
-            else if (MouseUp() && coordsMouseClickDown.X != -1) { _MouseClickLoc[0] = coordsMouseClickDown; _MouseClickLoc[1] = MouseRectangle(); coordsMouseClickDown.Location = new Point(-1); }
+            if (InWindow())
+            {
+                if (MouseDown()) { coordsMouseClickDown = MouseRectangle(Coords); }
+                else if (MouseUp() && coordsMouseClickDown.X != -1) { _MouseClickLoc[0] = coordsMouseClickDown; _MouseClickLoc[1] = MouseRectangle(); coordsMouseClickDown.Location = new Point(-1); }
 
-            if (RightMouseDown()) { coordsRightMouseClickDown = MouseRectangle(Coords); }
-            else if (RightMouseUp() && coordsRightMouseClickDown.X != -1) { _RightMouseClickLoc[0] = coordsRightMouseClickDown; _RightMouseClickLoc[1] = MouseRectangle(); coordsRightMouseClickDown.Location = new Point(-1); }
+                if (RightMouseDown()) { coordsRightMouseClickDown = MouseRectangle(Coords); }
+                else if (RightMouseUp() && coordsRightMouseClickDown.X != -1) { _RightMouseClickLoc[0] = coordsRightMouseClickDown; _RightMouseClickLoc[1] = MouseRectangle(); coordsRightMouseClickDown.Location = new Point(-1); }
+            }
         }
         public void Reset()
         {
@@ -246,44 +249,44 @@ namespace PandoraTest1.Managers
         /// <summary>
         /// Returns true on the first frame that the left mouse button is held down.
         /// </summary>
-        public bool MouseDown() { return _oldState.LeftButton == ButtonState.Released && _newState.LeftButton == ButtonState.Pressed; }
+        public bool MouseDown() { return InWindow() && _oldState.LeftButton == ButtonState.Released && _newState.LeftButton == ButtonState.Pressed; }
         /// <summary>
         /// Returns true on the first frame that the left mouse button is released.
         /// </summary>
-        public bool MouseUp() { return _oldState.LeftButton == ButtonState.Pressed && _newState.LeftButton == ButtonState.Released; }
+        public bool MouseUp() { return InWindow() && _oldState.LeftButton == ButtonState.Pressed && _newState.LeftButton == ButtonState.Released; }
         /// <summary>
         /// Returns true during the second and on frame that the left mouse button is held down.
         /// </summary>
-        public bool MouseHeld() { return _oldState.LeftButton == ButtonState.Pressed && _newState.LeftButton == ButtonState.Pressed; }
+        public bool MouseHeld() { return InWindow() && _oldState.LeftButton == ButtonState.Pressed && _newState.LeftButton == ButtonState.Pressed; }
         /// <summary>
         /// Returns true if the left mouse button is held down at all.
         /// </summary>
-        public bool IsMousePressed() { return _newState.LeftButton == ButtonState.Pressed; }
+        public bool IsMousePressed() { return InWindow() && _newState.LeftButton == ButtonState.Pressed; }
         /// <summary>
         /// Returns true if both left MouseDown and MouseUp are within a specified rectangle.
         /// </summary>
-        public bool MouseClick(Rectangle r) { return _MouseClickLoc[0].X != -1 && r.Intersects(_MouseClickLoc[0]) && r.Intersects(_MouseClickLoc[1]); }
+        public bool MouseClick(Rectangle r) { return InWindow() && _MouseClickLoc[0].X != -1 && r.Intersects(_MouseClickLoc[0]) && r.Intersects(_MouseClickLoc[1]); }
 
         /// <summary>
         /// Returns true on the first frame that the right mouse button is held down.
         /// </summary>
-        public bool RightMouseDown() { return _oldState.RightButton == ButtonState.Released && _newState.RightButton == ButtonState.Pressed; }
+        public bool RightMouseDown() { return InWindow() && _oldState.RightButton == ButtonState.Released && _newState.RightButton == ButtonState.Pressed; }
         /// <summary>
         /// Returns true on the first frame that the right mouse button is released.
         /// </summary>
-        public bool RightMouseUp() { return _oldState.RightButton == ButtonState.Pressed && _newState.RightButton == ButtonState.Released; }
+        public bool RightMouseUp() { return InWindow() && _oldState.RightButton == ButtonState.Pressed && _newState.RightButton == ButtonState.Released; }
         /// <summary>
         /// Returns true during the second and on frame that the right mouse button is held down.
         /// </summary>
-        public bool RightMouseHeld() { return _oldState.RightButton == ButtonState.Pressed && _newState.RightButton == ButtonState.Pressed; }
+        public bool RightMouseHeld() { return InWindow() && _oldState.RightButton == ButtonState.Pressed && _newState.RightButton == ButtonState.Pressed; }
         /// <summary>
         /// Returns true if the right mouse button is held down at all.
         /// </summary>
-        public bool IsRightMousePressed() { return _newState.RightButton == ButtonState.Pressed; }
+        public bool IsRightMousePressed() { return InWindow() && _newState.RightButton == ButtonState.Pressed; }
         /// <summary>
         /// Returns true if both right MouseDown and MouseUp are within a specified rectangle.
         /// </summary>
-        public bool RightMouseClick(Rectangle r) { return _RightMouseClickLoc[0].X != -1 && r.Intersects(_RightMouseClickLoc[0]) && r.Intersects(_RightMouseClickLoc[1]); }
+        public bool RightMouseClick(Rectangle r) { return InWindow() && _RightMouseClickLoc[0].X != -1 && r.Intersects(_RightMouseClickLoc[0]) && r.Intersects(_RightMouseClickLoc[1]); }
 
         /// <summary>
         /// Returns whether or not the mousewheel scrolled up (1), down (-1), or didn't move (0).
@@ -302,20 +305,19 @@ namespace PandoraTest1.Managers
         /// <summary>
         /// Returns true if the mouse is hovering over a rectangle.
         /// </summary>
-        public bool MouseHover(Rectangle r)
-        {
-            return MouseHover(r, _newState.X, _newState.Y);
-        }
+        public bool MouseHover(Rectangle r) { return MouseHover(r, _newState.X, _newState.Y); }
+
         /// <summary>
         /// Returns true if a point at coordinates X,Y intersects a rectangle.
         /// </summary>
         /// <param name="x">Defaults to mouse current state x.</param>
         /// <param name="y">Defaults to mouse current state y.</param>
-        private bool MouseHover(Rectangle r, int x = -1, int y = -1)
+        private bool MouseHover(Rectangle r, int? x = null, int? y = null)
         {
-            if (x == -1) { x = _newState.X; }
-            if (y == -1) { y = _newState.Y; }
-            return r.Intersects(new Rectangle(x, y, 1, 1));
+            if (x == null) { x = _newState.X; }
+            if (y == null) { y = _newState.Y; }
+            Rectangle mouseRec = new Rectangle((int)x, (int)y, 1, 1);
+            return r.Intersects(mouseRec) && Main.graphics.GraphicsDevice.Viewport.Bounds.Contains(mouseRec);
         }
         /// <summary>
         /// Returns the rectangle representing the mouse cursor location.
@@ -329,5 +331,11 @@ namespace PandoraTest1.Managers
         /// Returns a 1x1 rectangle representing the point x/y location.
         /// </summary>
         private Rectangle MouseRectangle(Point p) { return new Rectangle(p, new Point(1)); }
+
+        /// <summary>
+        /// Returns if the mouse is within the game window.
+        /// </summary>
+        /// <returns></returns>
+        public bool InWindow() { return Main.graphics.GraphicsDevice.Viewport.Bounds.Contains(MouseRectangle()); }
     }
 }

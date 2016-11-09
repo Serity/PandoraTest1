@@ -24,12 +24,8 @@ namespace PandoraTest1.States
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            panel.Update(gameTime);
         }
         float align = 1.0f;
-        bool _init = false;
-        UISprite panelIcon = new UISprite();
-        UISprite panel = new UISprite();
 
         public override void Draw(GameTime gameTime)
         {
@@ -45,34 +41,6 @@ namespace PandoraTest1.States
             Main.spriteBatch.DrawString(Main.arialFont, index + "["+ (thisSheet.sprites.Count-1)+"]"+"/" + sprite.name, new Vector2(300, 25), Color.White);
             Main.spriteBatch.DrawString(Main.arialFont, align.ToString(), new Vector2(300, 33), Color.White);
             sprite.Draw(gameTime, (int)a.X, (int)a.Y);
-            int iconLeftPad = 2;
-            if (!_init)
-            {
-                panelIcon.SetSprite(SpriteManager.GetSprite(Sheets.GIN_WT, "winged-sword.png"));
-                panel.SetSprite(UITheme.Red.Panel_Flat);
-                panelIcon.Width = panelIcon.Height = 25;
-                panelIcon.alignHorizontal = 1.0f;
-                panelIcon.alignVertical = 0.5f;
-                panelIcon.Left = iconLeftPad;
-                panelIcon.SetParent(panel);
-                panel.PaddingAll = 6;
-                panel.PaddingRight += 2;
-                int panel_left = (-1 * panel.Width) + panelIcon.Width + panel.PaddingRight + panelIcon.Left;
-                panel.Left = panel_left;
-                panel.OnMouseEnter = () => { Console.WriteLine("entering panel"); return true; };
-                panelIcon.OnMouseEnter = () => { Console.WriteLine("entering icon"); return true; };
-                panel.OnMouseDown = () => {
-                    // todo: extend animation
-                    if (panel.Left == panel_left) { panel.Left = -1 * panel.PaddingLeft; }
-                    else { panel.Left = panel_left; }
-                    return true;
-                };
-                panelIcon.OnMouseDown = () => { Console.WriteLine("Clicked icon"); return false; };
-
-                panel.Recalculate();
-                _init = true;
-            }
-            panel.Draw(gameTime);
         }
         public void ChangeAlign(float f)
         {

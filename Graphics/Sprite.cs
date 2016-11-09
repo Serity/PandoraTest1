@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,5 +29,12 @@ namespace PandoraTest1.Graphics
         {
             Main.spriteBatch.Draw(parentSheet.sheetTexture, new Rectangle(x, y, width, height), rectInSheet, Color.White);
         }
+        public void Draw(GameTime gameTime, int x, int y, int width, int height, Color modColor)
+        {
+            Main.spriteBatch.Draw(parentSheet.sheetTexture, new Rectangle(x, y, width, height), rectInSheet, modColor);
+        }
+
+
+
     }
 }

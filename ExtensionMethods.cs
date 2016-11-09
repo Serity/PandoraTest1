@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using PandoraTest1.Graphics;
 using PandoraTest1.Managers;
 using System;
 using System.Collections.Generic;
