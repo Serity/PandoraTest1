@@ -49,8 +49,6 @@ namespace PandoraTest1
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            GameWidth = graphics.GraphicsDevice.Viewport.Width;
-            GameHeight = graphics.GraphicsDevice.Viewport.Height;
         }
 
         /// <summary>
@@ -69,6 +67,9 @@ namespace PandoraTest1
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            GameWidth = graphics.GraphicsDevice.Viewport.Width;
+            GameHeight = graphics.GraphicsDevice.Viewport.Height;
+
             arialFont = Content.Load<SpriteFont>("Arial");
 
             //thanks to Ken on StackExchange http://gamedev.stackexchange.com/questions/44015/

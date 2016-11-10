@@ -151,3 +151,15 @@
 /processorParam:TextureFormat=Color
 /build:UI/gameiconsnet-spritesheet-transparent-invert-6.png
 
+#begin Audio/click1.ogg
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/click1.ogg
+
+#begin Audio/rollover2.ogg
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/rollover2.ogg
+

@@ -11,7 +11,10 @@ namespace PandoraTest1.UI
     {
         public UIObject parent;
         public List<UIObject> children = new List<UIObject>();
-        
+
+        public bool visible = true;
+        public bool updateable = true;
+
         // location/size
         public Rectangle dimensions;
         // inner dimensions are dimensions with padding included
@@ -67,7 +70,7 @@ namespace PandoraTest1.UI
 
             bool hover = InputManager.Mouse.MouseHover(dimensions);
             if (!hover) {
-                if (InputManager.Mouse.MouseLeave(dimensions) && OnMouseLeave != null) { Console.WriteLine("onmouseleave"); return OnMouseLeave(); }
+                if (InputManager.Mouse.MouseLeave(dimensions) && OnMouseLeave != null) { return OnMouseLeave(); }
                 //return false;
             }
 
@@ -80,7 +83,7 @@ namespace PandoraTest1.UI
             if (InputManager.Mouse.MouseClick(dimensions) && OnMouseClick != null) { return OnMouseClick(); }
             else if (InputManager.Mouse.MouseDown() && OnMouseDown != null) { return OnMouseDown(); }
             else if (InputManager.Mouse.MouseUp() && OnMouseUp != null) { return OnMouseUp(); }
-            else if (InputManager.Mouse.MouseEnter(dimensions) && OnMouseEnter != null) { Console.WriteLine("onmouseenter"); return OnMouseEnter(); }
+            else if (InputManager.Mouse.MouseEnter(dimensions) && OnMouseEnter != null) { return OnMouseEnter(); }
             else if (InputManager.Mouse.MouseHeld() && OnMouseHeld != null) { return OnMouseHeld(); }
             else if (InputManager.Mouse.MouseHover(dimensions) && OnMouseHover != null) { return OnMouseHover(); }
 

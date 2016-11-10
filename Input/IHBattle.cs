@@ -14,7 +14,17 @@ namespace PandoraTest1.Input
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (KeybindHandler.CancelButton.Down) { Main.v += 64; }
+            BattleScreen screen = ((BattleScreen)StateManager.GetState(StateID.BattleScreen));
+
+
+            if (KeybindHandler.CancelButton.Down)
+            {
+                screen?.LowerHUD.LeftPanel.hoveredPanel?.Select();
+            }
+            else if (KeybindHandler.ConfirmButton.Down)
+            {
+                screen?.LowerHUD.LeftPanel.hoveredPanel?.Unselect();
+            }
 
             /*if (KeybindHandler.DownButton.Pressed) { Main.playerMapEntity.MoveDown(); }
             else if (KeybindHandler.UpButton.Pressed) { Main.playerMapEntity.MoveUp(); }

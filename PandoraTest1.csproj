@@ -86,11 +86,15 @@
     <Compile Include="Tilesets\Town16Test.cs" />
     <Compile Include="Tileset.cs" />
     <Compile Include="Graphics\Spritesheet.cs" />
+    <Compile Include="UI\Battle\LowerHUD_BreadcrumbsListPanel.cs" />
+    <Compile Include="UI\Battle\LowerHUD.cs" />
+    <Compile Include="UI\Battle\LowerHUD_Left.cs" />
     <Compile Include="UI\UIObject.cs" />
     <Compile Include="UI\UISpriteShadow.cs" />
     <Compile Include="UI\UISprite.cs" />
     <Compile Include="UI\UITheme.cs" />
-    <Compile Include="UI\UI_BattleExtendFromLeftPanel.cs" />
+    <Compile Include="UI\UI_BattleBreadcrumbIconPanel.cs" />
+    <Compile Include="UI\UI_BattleSelectorPanel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
